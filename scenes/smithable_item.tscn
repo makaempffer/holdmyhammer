@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d05efyjswn6qw"]
+
+[ext_resource type="Script" uid="uid://cjdg1ubs5hplv" path="res://scripts/smithable_item.gd" id="1_yp211"]
+
+[node name="SmithableItem" type="Node3D"]
+script = ExtResource("1_yp211")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
