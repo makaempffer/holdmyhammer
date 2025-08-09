@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bygcolukodwys"]
+
+[ext_resource type="Script" uid="uid://d1ljjgxo78da7" path="res://scripts/UI/combo_hud.gd" id="1_x0rhg"]
+
+[node name="ComboHud" type="CanvasLayer" groups=["hud_combo"]]
+script = ExtResource("1_x0rhg")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
