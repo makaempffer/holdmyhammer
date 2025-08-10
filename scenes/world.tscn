@@ -46,6 +46,9 @@ script = ExtResource("3_k0juu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Baseroom/Interactables/TableArea"]
 shape = SubResource("SphereShape3D_rwgxs")
 
+[node name="RestSocket" type="Node3D" parent="Baseroom/Interactables/TableArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.720436, 0, 0)
+
 [node name="Player" type="CharacterBody3D" parent="." groups=["player"]]
 transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 0, 2, 2.13011)
 wall_min_slide_angle = 0.785398
@@ -61,3 +64,6 @@ mesh = SubResource("CapsuleMesh_qfnet")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.581257, 0)
+
+[node name="HandSocket" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.536028)

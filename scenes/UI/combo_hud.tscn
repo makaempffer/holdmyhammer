@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bygcolukodwys"]
+[gd_scene load_steps=6 format=3 uid="uid://bygcolukodwys"]
 
 [ext_resource type="Script" uid="uid://d1ljjgxo78da7" path="res://scripts/UI/combo_hud.gd" id="1_x0rhg"]
+[ext_resource type="Texture2D" uid="uid://1m4huggk73u4" path="res://assets/UI/background.png" id="2_7g0s1"]
+[ext_resource type="Texture2D" uid="uid://ct4y0y73yvxwv" path="res://assets/UI/fill.png" id="3_kl5vu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7g0s1"]
+texture = ExtResource("2_7g0s1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qw24c"]
+texture = ExtResource("3_kl5vu")
 
 [node name="ComboHud" type="CanvasLayer" groups=["hud_combo"]]
 script = ExtResource("1_x0rhg")
@@ -34,4 +42,8 @@ theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Progress" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_7g0s1")
+theme_override_styles/fill = SubResource("StyleBoxTexture_qw24c")
+show_percentage = false

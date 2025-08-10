@@ -66,14 +66,19 @@ func _process(delta: float) -> void:
 			emit_signal("smithing_completed")
 		
 	if not completed:
-		if time_decay_passed >= DECAY_DELAY and progress >= 1 :
+		if time_decay_passed >= DECAY_DELAY and progress >= 1:
 			progress -= PROGRESS_DECAY
-			time_decay_passed = 0	
+			time_decay_passed = 0
 	
 	time_passed += delta
 	time_decay_passed += delta
+	
+	if completed and spawned_decals.size() > 0:
+		for decal in spawned_decals:
+			decal.queue_free()
+			spawned_decals.erase(decal)
 
-	if time_passed >= marker_spawn_delay and started:
+	if time_passed >= marker_spawn_delay and started and not completed:
 		var random_pos_x = randf_range(-0.5, 0.6)
 		var random_pos_z = randf_range(-0.15, 0.15)
 		_spawn_hit_marker(Vector3(random_pos_x, 0.2, random_pos_z))

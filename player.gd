@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var jump_velocity: float = 4.5
 @export var gravity: float = 9.8
 @onready var camera_pivot: Camera3D = $Camera3D
+@onready var hand_socket: Node3D = $HandSocket
 var can_control: bool = true
 var holded_item: SmithableItem = null
 var smithing_item: SmithableItem = null
@@ -62,3 +63,19 @@ func _physics_process(delta):
 			velocity.y = 0
 
 	move_and_slide()
+	
+func grab_smithing_item(item: SmithableItem):
+	# Parent to hand and reset local transform
+	if item.get_parent():
+		item.get_parent().remove_child(item)
+	hand_socket.add_child(item)
+	item.transform = Transform3D.IDENTITY
+	holded_item = item
+	smithing_item = null
+	# Optional: if item has physics/colliders, disable while held
+	# item.set_collision_layer_value(..., false) / custom method like item.set_held(true)
+
+func release_smithing_item() -> SmithableItem:
+	var item := holded_item
+	holded_item = null
+	return item
