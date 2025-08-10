@@ -35,6 +35,9 @@ var camera_target_fov: float = 40.0
 
 var hit_marker_texture = preload("res://assets/textures/hit_marker.png")
 
+# SMITHING STUFF
+var temperature = 20
+
 func set_crafted_item(item: CraftedItem) -> void:
 	crafted_item = item
 	_update_mesh()
@@ -55,7 +58,7 @@ func _update_mesh() -> void:
 
 func _process(delta: float) -> void:
 	for decal in spawned_decals:
-		decal.scale -= Vector3.ONE * 0.5 * delta
+		decal.scale -= Vector3.ONE * 0.25 * delta
 		if decal.scale.x <= 0.1:
 			decal.queue_free()
 			spawned_decals.erase(decal)
