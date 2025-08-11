@@ -1,0 +1,104 @@
+[gd_scene load_steps=20 format=3 uid="uid://ccgfxke0sskks"]
+
+[ext_resource type="Texture2D" uid="uid://cmchoyxbkcs5k" path="res://assets/textures/smoke.png" id="1_5fea7"]
+[ext_resource type="Script" uid="uid://dw4hgo7vgpnce" path="res://scripts/fire.gd" id="1_xdktb"]
+[ext_resource type="AudioStream" uid="uid://brch6i54u2yw4" path="res://assets/sounds/campire_crackling.mp3" id="2_jx2c4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx2c4"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_5fea7")
+emission_enabled = true
+emission = Color(0.875934, 0.697194, 0.0143368, 1)
+emission_energy_multiplier = 2.0
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="Curve" id="Curve_5fea7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.66171, 0.667957), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jx2c4"]
+curve = SubResource("Curve_5fea7")
+
+[sub_resource type="Gradient" id="Gradient_5fea7"]
+offsets = PackedFloat32Array(0, 0.460905, 1)
+colors = PackedColorArray(0.823529, 0.486275, 0, 0.129412, 1, 1, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jx2c4"]
+gradient = SubResource("Gradient_5fea7")
+
+[sub_resource type="Curve" id="Curve_xdktb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.513011, 0.969814), 0.0, 0.0, 0, 0, Vector2(1, 0.456656), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gm6we"]
+curve = SubResource("Curve_xdktb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xdktb"]
+emission_shape_scale = Vector3(0.2, 0.2, 0.2)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_gm6we")
+color_ramp = SubResource("GradientTexture1D_jx2c4")
+alpha_curve = SubResource("CurveTexture_jx2c4")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gm6we"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3p3iv"]
+load_path = "res://.godot/imported/smoke.png-31c73da528b34b80f88eaacaca14fecb.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4fjq"]
+render_priority = -1
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
+albedo_texture = SubResource("CompressedTexture2D_3p3iv")
+emission = Color(0.875934, 0.697194, 0.0143368, 1)
+emission_energy_multiplier = 2.0
+billboard_mode = 1
+billboard_keep_scale = true
+proximity_fade_enabled = true
+
+[sub_resource type="Curve" id="Curve_jx2c4"]
+_data = [Vector2(0.00371747, 1), 0.0, 0.0, 0, 0, Vector2(0.460967, 0.718266), 0.0, 0.0, 0, 0, Vector2(1, 0.205108), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5fea7"]
+curve = SubResource("Curve_jx2c4")
+
+[sub_resource type="Curve" id="Curve_gm6we"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494424, 0.768576), 0.0, 0.0, 0, 0, Vector2(1, 0.376161), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xdktb"]
+curve = SubResource("Curve_gm6we")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jx6cc"]
+emission_shape_scale = Vector3(0.2, 0.2, 0.2)
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_xdktb")
+alpha_curve = SubResource("CurveTexture_5fea7")
+
+[node name="Fire" type="Node3D"]
+script = ExtResource("1_xdktb")
+
+[node name="StaticFlame" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.358303, 0, 0)
+material_override = SubResource("StandardMaterial3D_jx2c4")
+process_material = SubResource("ParticleProcessMaterial_xdktb")
+draw_pass_1 = SubResource("QuadMesh_gm6we")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_i4fjq")
+lifetime = 2.0
+collision_base_size = 1.0
+process_material = SubResource("ParticleProcessMaterial_jx6cc")
+draw_pass_1 = SubResource("QuadMesh_gm6we")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_jx2c4")
+max_distance = 5.0
